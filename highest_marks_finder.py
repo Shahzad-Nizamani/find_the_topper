@@ -15,12 +15,7 @@ def get_result_page(dept, year, semester, batch, subject):
     driver.get("https://exam.usindh.edu.pk/v2/course.php") 
     
     prog = f"BS ({dept})"
-
-    if dept in ["ENVIRONMENTAL SCIENCE", "ENVIRONMENTAL SCIENCES"]:
-      dept = "CENTRE FOR ENVIRONMENTAL SCIENCES"
-      prog = "BS (ENVIRONMENTAL SCIENCES)"
-
-       
+     
     wait = WebDriverWait(driver, 10)
     wait.until(EC.presence_of_element_located(
     (By.XPATH, f"//select[@id='dept_id']/option[text()='{dept}']")
@@ -40,6 +35,12 @@ def get_result_page(dept, year, semester, batch, subject):
     
     if dept == "BUSINESS ADMINSTRATION":
        prog = "B.B.A (HONS)"
+
+    if dept == "PHARMACY":
+       prog = "DOCTOR OF PHARMACY (PHARM. D)"
+
+    if dept == "SINDH DEVELOPMENT STUDIES CENTRE":
+       prog = "BS (RURAL DEVELOPMENT)"
 
     wait = WebDriverWait(driver, 10)
     wait.until(EC.presence_of_element_located(
