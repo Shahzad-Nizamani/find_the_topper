@@ -1,0 +1,5 @@
+selenium
+beautifulsoup
+gunicorn
+flask
+chromedriver-autoinstaller==0.6.4
