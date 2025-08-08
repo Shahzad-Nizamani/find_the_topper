@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/design.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='design.css') }}">
     </head>
 <body>
     
@@ -47,6 +47,7 @@
     
           <div class="instruction">
             <h3> Need Help?</h3>
+            <p>Medical and Egineering batches are for computer science students.</p>
             <p>If this is not working for you, feel free to <a href="mailto:nizamanias124@gmail.com">email me</a> with the details. I’ll assist you in resolving the issue.</p>
           </div>
         </div>
@@ -65,7 +66,6 @@
         <label for="exam-year">SELECT EXAM YEAR</label>
         <select id="exam-year" name="year" required>
             <option value="">-- Select Year --</option>
-            <option value="2025">2025</option>
             <option value="2024">2024</option>
             <option value="2023">2023</option>
             <option value="2022">2022</option>
