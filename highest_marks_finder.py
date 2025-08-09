@@ -16,30 +16,22 @@ class SubjectNotFoundError(Exception):
     pass
 
 def get_result_page(dept, year, semester, batch, subject):
-    import os
-    import shutil
-    import tempfile
 
-    chrome_driver_path = shutil.which("chromedriver")
-    # Create a guaranteed unique, isolated Chrome profile dir
-    tmp_profile = tempfile.mkdtemp(prefix="chrome-profile-")
+   chrome_driver_path = shutil.which("chromedriver")
+   tmp_profile = tempfile.mkdtemp()  # This makes a guaranteed-unique folder
 
-    options = Options()
-    options.add_argument("--headless")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-gpu")
-    options.add_argument("--window-size=1920,1080")
-    options.add_argument(f"--user-data-dir={tmp_profile}")
-    options.add_argument("--profile-directory=Profile1")
-    options.add_argument("--remote-debugging-port=0")
-    options.add_argument("--disable-default-apps")
-    options.add_argument("--guest")
+   options = Options()
+   options.add_argument("--headless")
+   options.add_argument("--no-sandbox")
+   options.add_argument("--disable-dev-shm-usage")
+   options.add_argument("--disable-gpu")
+   options.add_argument("--window-size=1920,1080")
+   options.add_argument(f"--user-data-dir={tmp_profile}")
 
-    service = Service(executable_path=chrome_driver_path)
-    driver = webdriver.Chrome(service=service, options=options)
+   service = Service(executable_path=chrome_driver_path)
+   driver = webdriver.Chrome(service=service, options=options)
 
-    try:
+   try:
         driver.get("https://exam.usindh.edu.pk/v2/course.php") 
 
         prog = f"BS ({dept})"
@@ -112,13 +104,10 @@ def get_result_page(dept, year, semester, batch, subject):
         html = driver.page_source
         return html
 
-    finally:
-        driver.quit()
-        # Clean up profile directory
-        try:
-            shutil.rmtree(tmp_profile)
-        except Exception as e:
-            print(f"Warning: could not remove temp profile dir {tmp_profile}: {e}")
+   finally:
+    driver.quit()
+    shutil.rmtree(tmp_profile, ignore_errors=True)
+
 
 def find_topper(dept, year, semester, batch, subject):
    try:
