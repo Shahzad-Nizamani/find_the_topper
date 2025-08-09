@@ -9,6 +9,15 @@ import time
 import shutil
 import tempfile
 import subprocess
+import subprocess
+
+try:
+    chrome_version = subprocess.check_output(["google-chrome", "--version"]).decode().strip()
+    chromedriver_version = subprocess.check_output(["chromedriver", "--version"]).decode().strip()
+    print("Google Chrome version:", chrome_version)
+    print("ChromeDriver version:", chromedriver_version)
+except Exception as e:
+    print("Could not get Chrome/Chromedriver versions:", e)
 
 class BatchNotFoundError(Exception):
     pass
