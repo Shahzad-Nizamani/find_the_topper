@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 import time
 import shutil
 import tempfile
+import subprocess
 
 class BatchNotFoundError(Exception):
     pass
@@ -16,7 +17,12 @@ class SubjectNotFoundError(Exception):
     pass
 
 def get_result_page(dept, year, semester, batch, subject):
-
+   try:
+      subprocess.run(["pkill", "-f", "chrome"], check=False)
+      subprocess.run(["pkill", "-f", "chromedriver"], check=False)
+   except Exception:
+        pass
+   
    chrome_driver_path = shutil.which("chromedriver")
    tmp_profile = tempfile.mkdtemp()  # This makes a guaranteed-unique folder
 
@@ -105,8 +111,8 @@ def get_result_page(dept, year, semester, batch, subject):
         return html
 
    finally:
-    driver.quit()
-    shutil.rmtree(tmp_profile, ignore_errors=True)
+        driver.quit()
+        shutil.rmtree(tmp_profile, ignore_errors=True)
 
 
 def find_topper(dept, year, semester, batch, subject):
