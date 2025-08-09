@@ -16,105 +16,109 @@ class SubjectNotFoundError(Exception):
     pass
 
 def get_result_page(dept, year, semester, batch, subject):
+    import os
+    import shutil
+    import tempfile
+
     chrome_driver_path = shutil.which("chromedriver")
-    tmp_profile = tempfile.mkdtemp()
+    # Create a guaranteed unique, isolated Chrome profile dir
+    tmp_profile = tempfile.mkdtemp(prefix="chrome-profile-")
 
     options = Options()
-    options.add_argument("--headless")  
-    options.add_argument("--no-sandbox")  
-    options.add_argument("--disable-dev-shm-usage") 
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
     options.add_argument(f"--user-data-dir={tmp_profile}")
-    options.add_argument("--profile-directory=Default")
+    options.add_argument("--profile-directory=Profile1")
     options.add_argument("--remote-debugging-port=0")
+    options.add_argument("--disable-default-apps")
+    options.add_argument("--guest")
 
-    # Path to chromedriver on Linux
-   
     service = Service(executable_path=chrome_driver_path)
     driver = webdriver.Chrome(service=service, options=options)
 
     try:
-      driver.get("https://exam.usindh.edu.pk/v2/course.php") 
-      
-      prog = f"BS ({dept})"
+        driver.get("https://exam.usindh.edu.pk/v2/course.php") 
 
-      if dept in ["ENVIRONMENTAL SCIENCE", "ENVIRONMENTAL SCIENCES"]:
-         dept = "CENTRE FOR ENVIRONMENTAL SCIENCES"
-         prog = "BS (ENVIRONMENTAL SCIENCES)"
+        prog = f"BS ({dept})"
+        if dept in ["ENVIRONMENTAL SCIENCE", "ENVIRONMENTAL SCIENCES"]:
+            dept = "CENTRE FOR ENVIRONMENTAL SCIENCES"
+            prog = "BS (ENVIRONMENTAL SCIENCES)"
 
-      department = Select(driver.find_element(By.ID, "dept_id"))
-      options = [option.text.strip() for option in department.options]
-      if dept not in options:
-         raise ValueError (f"{dept} was not found, please enter with correct")
-      wait = WebDriverWait(driver, 10)
-      wait.until(EC.presence_of_element_located(
-      (By.XPATH, f"//select[@id='dept_id']/option[text()='{dept}']")
-      ))
-      department.select_by_visible_text(dept)
+        department = Select(driver.find_element(By.ID, "dept_id"))
+        options = [option.text.strip() for option in department.options]
+        if dept not in options:
+            raise ValueError(f"{dept} was not found, please enter with correct")
 
-      if dept == "MEDIA & COMMUNICATION STUDIES":
-         dept = "MASS COMMUNICATION"
-         prog = f"BS ({dept})"
+        wait = WebDriverWait(driver, 10)
+        wait.until(EC.presence_of_element_located(
+            (By.XPATH, f"//select[@id='dept_id']/option[text()='{dept}']")
+        ))
+        department.select_by_visible_text(dept)
 
+        if dept == "MEDIA & COMMUNICATION STUDIES":
+            dept = "MASS COMMUNICATION"
+            prog = f"BS ({dept})"
 
-      if '&' in dept:
-         dept = dept.replace('&', "AND")
-         prog = f"BS ({dept})"
+        if '&' in dept:
+            dept = dept.replace('&', "AND")
+            prog = f"BS ({dept})"
 
-      
-      if dept == "BUSINESS ADMINSTRATION":
-         prog = "B.B.A (HONS)"
+        if dept == "BUSINESS ADMINSTRATION":
+            prog = "B.B.A (HONS)"
 
-      program = Select(driver.find_element(By.ID, "program_id"))
-      wait = WebDriverWait(driver, 3)
-      wait.until(EC.presence_of_element_located(
-      (By.XPATH, f"//select[@id='program_id']/option[text()='{prog}']")
-      ))
-      program.select_by_visible_text(prog)
+        program = Select(driver.find_element(By.ID, "program_id"))
+        wait.until(EC.presence_of_element_located(
+            (By.XPATH, f"//select[@id='program_id']/option[text()='{prog}']")
+        ))
+        program.select_by_visible_text(prog)
 
-      y = Select(driver.find_element(By.ID, "exam_year"))
-      y.select_by_visible_text(year)
+        y = Select(driver.find_element(By.ID, "exam_year"))
+        y.select_by_visible_text(year)
 
-      sem = Select(driver.find_element(By.ID, "semesterCombo"))
-      sem.select_by_visible_text(semester)
+        sem = Select(driver.find_element(By.ID, "semesterCombo"))
+        sem.select_by_visible_text(semester)
 
-      time.sleep(1)
-      dropdown = Select(driver.find_element(By.ID, "batch"))
+        time.sleep(1)
+        dropdown = Select(driver.find_element(By.ID, "batch"))
 
-      found = False
-      for option in dropdown.options:
+        found = False
+        for option in dropdown.options:
             if option.text.strip() == batch:
-               dropdown.select_by_visible_text(option.text)
-               found = True
-               break
-      if not found:
-            driver.quit()
+                dropdown.select_by_visible_text(option.text)
+                found = True
+                break
+        if not found:
             raise BatchNotFoundError(f"Batch '{batch}' not found in dropdown.")
 
-      time.sleep(1)
+        time.sleep(1)
+        course = Select(driver.find_element(By.ID, "courseNo"))
 
-      course = Select(driver.find_element(By.ID, "courseNo"))
+        found = False
+        for option in course.options:
+            if option.text.strip() == subject:
+                course.select_by_visible_text(option.text)
+                found = True
+                break
+        if not found:
+            raise SubjectNotFoundError(f"Subject '{subject}' not found in dropdown.")
 
-      found = False
-      for option in course.options:
-         if option.text.strip() == subject:
-          course.select_by_visible_text(option.text)
-          found = True
-          break
-      if not found:
-         driver.quit()
-         raise SubjectNotFoundError(f"Subject '{subject}' not found in dropdown.")
-      
-      display_button = driver.find_element(By.ID, "display")
-      display_button.click()
-      wait = WebDriverWait(driver, 10)
-      wait.until(EC.presence_of_element_located((By.ID, "course")))
-      time.sleep(1)
-      html = driver.page_source
-      return html
+        display_button = driver.find_element(By.ID, "display")
+        display_button.click()
+        wait.until(EC.presence_of_element_located((By.ID, "course")))
+        time.sleep(1)
+        html = driver.page_source
+        return html
+
     finally:
-       driver.quit()
+        driver.quit()
+        # Clean up profile directory
+        try:
+            shutil.rmtree(tmp_profile)
+        except Exception as e:
+            print(f"Warning: could not remove temp profile dir {tmp_profile}: {e}")
 
 def find_topper(dept, year, semester, batch, subject):
    try:
