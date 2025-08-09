@@ -16,19 +16,22 @@ class SubjectNotFoundError(Exception):
     pass
 
 def get_result_page(dept, year, semester, batch, subject):
+    chrome_driver_path = shutil.which("chromedriver")
+    tmp_profile = tempfile.mkdtemp()
+
     options = Options()
     options.add_argument("--headless")  
     options.add_argument("--no-sandbox")  
     options.add_argument("--disable-dev-shm-usage") 
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
-    options.add_argument(f"--user-data-dir={tempfile.mkdtemp()}")
+    options.add_argument(f"--user-data-dir={tmp_profile}")
+    options.add_argument("--profile-directory=Default")
+    options.add_argument("--remote-debugging-port=0")
 
     # Path to chromedriver on Linux
-    chrome_driver_path = shutil.which("chromedriver")
-    print("Found ChromeDriver at:", chrome_driver_path)
+   
     service = Service(executable_path=chrome_driver_path)
-
     driver = webdriver.Chrome(service=service, options=options)
 
     try:
