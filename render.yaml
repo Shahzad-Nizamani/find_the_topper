@@ -1,9 +1,19 @@
 services:
   - type: web
-    name: topper-finder
+    name: my-selenium-app
     env: python
-    buildCommand: ./build.sh && pip install -r requirements.txt
+    buildCommand: |
+      apt-get update
+      apt-get install -y wget unzip curl
+
+      # Install Chrome
+      wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      apt install -y ./google-chrome-stable_current_amd64.deb
+
+      # Get Chrome version (major.minor.build)
+      CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
+
+      # Install ChromeDriver matching Chrome version
+      wget -O /tmp/chromedriver.zip "https://chromedriver.storage.googleapis.com/$CHROME_VERSION/chromedriver_linux64.zip"
+      unzip /tmp/chromedriver.zip -d /usr/local/bin/
     startCommand: gunicorn app:app
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.10
