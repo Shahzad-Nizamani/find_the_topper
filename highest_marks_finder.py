@@ -8,16 +8,7 @@ from bs4 import BeautifulSoup
 import time
 import shutil
 import tempfile
-import subprocess
-import subprocess
-
-try:
-    chrome_version = subprocess.check_output(["google-chrome", "--version"]).decode().strip()
-    chromedriver_version = subprocess.check_output(["chromedriver", "--version"]).decode().strip()
-    print("Google Chrome version:", chrome_version)
-    print("ChromeDriver version:", chromedriver_version)
-except Exception as e:
-    print("Could not get Chrome/Chromedriver versions:", e)
+import chromedriver_autoinstaller
 
 class BatchNotFoundError(Exception):
     pass
@@ -26,14 +17,11 @@ class SubjectNotFoundError(Exception):
     pass
 
 def get_result_page(dept, year, semester, batch, subject):
-   try:
-      subprocess.run(["pkill", "-f", "chrome"], check=False)
-      subprocess.run(["pkill", "-f", "chromedriver"], check=False)
-   except Exception:
-        pass
    
-   chrome_driver_path = shutil.which("chromedriver")
-   tmp_profile = tempfile.mkdtemp()  # This makes a guaranteed-unique folder
+    # Install matching ChromeDriver automatically
+   chromedriver_autoinstaller.install()
+
+   tmp_profile = tempfile.mkdtemp()
 
    options = Options()
    options.add_argument("--headless")
@@ -43,9 +31,7 @@ def get_result_page(dept, year, semester, batch, subject):
    options.add_argument("--window-size=1920,1080")
    options.add_argument(f"--user-data-dir={tmp_profile}")
 
-   service = Service(executable_path=chrome_driver_path)
-   driver = webdriver.Chrome(service=service, options=options)
-
+   driver = webdriver.Chrome(options=options)
    try:
         driver.get("https://exam.usindh.edu.pk/v2/course.php") 
 

@@ -5,15 +5,12 @@ services:
     buildCommand: |
       apt-get update
       apt-get install -y wget unzip curl
-
       # Install Chrome
       wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
       apt install -y ./google-chrome-stable_current_amd64.deb
+      google-chrome --version
+      # Install Python deps
+      pip install --upgrade pip
+      pip install -r requirements.txt
+    startCommand: gunicorn app:app
 
-      # Get Chrome version (major.minor.build)
-      CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
-
-      # Install ChromeDriver matching Chrome version
-      wget -O /tmp/chromedriver.zip "https://chromedriver.storage.googleapis.com/$CHROME_VERSION/chromedriver_linux64.zip"
-      unzip /tmp/chromedriver.zip -d /usr/local/bin/
-    startCommand: gunicorn -w 1 app:app
