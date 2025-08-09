@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
 import time
+import shutil
 
 class BatchNotFoundError(Exception):
     pass
@@ -22,7 +23,10 @@ def get_result_page(dept, year, semester, batch, subject):
     options.add_argument("--window-size=1920,1080")
 
     # Path to chromedriver on Linux
-    service = Service(executable_path="/usr/local/bin/chromedriver")
+    chrome_driver_path = shutil.which("chromedriver")
+    print("Found ChromeDriver at:", chrome_driver_path)
+    service = Service(executable_path=chrome_driver_path)
+
     driver = webdriver.Chrome(service=service, options=options)
 
     try:
