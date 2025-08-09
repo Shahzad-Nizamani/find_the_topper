@@ -16,4 +16,4 @@ services:
       # Install ChromeDriver matching Chrome version
       wget -O /tmp/chromedriver.zip "https://chromedriver.storage.googleapis.com/$CHROME_VERSION/chromedriver_linux64.zip"
       unzip /tmp/chromedriver.zip -d /usr/local/bin/
-    startCommand: gunicorn app:app
+    startCommand: gunicorn -w 1 app:app
