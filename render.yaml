@@ -1,19 +1,27 @@
 services:
   - type: web
-    name: my-selenium-app
+    name: find_the_topper
     env: python
     buildCommand: |
       apt-get update
-      apt-get install -y wget unzip curl
+      apt-get install -y wget unzip curl gnupg
 
       # Install Chrome
       wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
       apt install -y ./google-chrome-stable_current_amd64.deb
 
-      # Get Chrome version (major.minor.build)
-      CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
+      # Get full Chrome version (major.minor.build.patch)
+      CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
+      echo "Detected Chrome version: $CHROME_VERSION"
 
-      # Install ChromeDriver matching Chrome version
-      wget -O /tmp/chromedriver.zip "https://chromedriver.storage.googleapis.com/$CHROME_VERSION/chromedriver_linux64.zip"
-      unzip /tmp/chromedriver.zip -d /usr/local/bin/
-    startCommand: gunicorn app:app
+      # Download matching ChromeDriver from new storage bucket
+      wget "https://storage.googleapis.com/chrome-for-testing-public/$CHROME_VERSION/linux64/chromedriver-linux64.zip" -O /tmp/chromedriver.zip
+      unzip /tmp/chromedriver.zip -d /tmp/
+      mv /tmp/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
+      chmod +x /usr/local/bin/chromedriver
+      echo "✅ ChromeDriver installed"
+
+    startCommand: |
+      pkill -f chrome || true
+      pkill -f chromedriver || true
+      gunicorn app:app
