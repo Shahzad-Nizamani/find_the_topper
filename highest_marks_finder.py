@@ -44,8 +44,8 @@ def get_result_page(dept, year, semester, batch, subject):
          prog = "BS (ENVIRONMENTAL SCIENCES)"
 
       department = Select(driver.find_element(By.ID, "dept_id"))
-      options = [option.text.strip() for option in department.options]
-      if dept not in options:
+      dept_options = [option.text.strip() for option in department.options]
+      if dept not in dept_options:
          raise ValueError (f"{dept} was not found, please enter with correct")
       wait = WebDriverWait(driver, 10)
       wait.until(EC.presence_of_element_located(
@@ -83,9 +83,9 @@ def get_result_page(dept, year, semester, batch, subject):
       dropdown = Select(driver.find_element(By.ID, "batch"))
 
       found = False
-      for option in dropdown.options:
-            if option.text.strip() == batch:
-               dropdown.select_by_visible_text(option.text)
+      for batch_option in dropdown.options:
+            if batch_option.text.strip() == batch:
+               dropdown.select_by_visible_text(batch_option.text)
                found = True
                break
       if not found:
@@ -115,6 +115,7 @@ def get_result_page(dept, year, semester, batch, subject):
       return html
     finally:
        driver.quit()
+       shutil.rmtree(temp_dir, ignore_errors=True)
 
 def find_topper(dept, year, semester, batch, subject):
    try:
@@ -158,7 +159,7 @@ def find_topper(dept, year, semester, batch, subject):
    for name in first:
       print(name + " = " + data[name])
 
-      print("SECOND: ")
+   print("SECOND: ")
    for name in second:
       print(name + " = " + data[name])
    
