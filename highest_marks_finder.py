@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
 import time
 import shutil
+import tempfile
 
 class BatchNotFoundError(Exception):
     pass
@@ -16,11 +17,15 @@ class SubjectNotFoundError(Exception):
 
 def get_result_page(dept, year, semester, batch, subject):
     options = Options()
-    options.add_argument("--headless")  
+    options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")  
     options.add_argument("--disable-dev-shm-usage") 
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
+
+    # Use a unique temporary user-data-dir for each run
+    temp_dir = tempfile.mkdtemp()
+    options.add_argument(f"--user-data-dir={temp_dir}")
 
     # Path to chromedriver on Linux
     chrome_driver_path = shutil.which("chromedriver")
