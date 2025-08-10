@@ -8,9 +8,6 @@ from bs4 import BeautifulSoup
 import time
 import shutil
 import tempfile
-import os
-os.system("pkill -f chrome || true")
-os.system("pkill -f chromedriver || true")
 
 
 class BatchNotFoundError(Exception):
