@@ -1,360 +1,401 @@
-      * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            line-height: 1.6;
-            padding-top: 80px; /* Add space for fixed navbar */
-        }
-        
-        nav {
-            width: 100%;
-            height: 80px;
-            background: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 2rem;
-        }
-        
-        .nav-left {
-            display: flex;
-            align-items: center;
-            flex: 1;
-        }
-        
-        .logo {
-            width: 270px;
-            height: auto;
-        }
-        
-        .created {
-            color: #03426e;
-            font-size: clamp(16px, 3vw, 24px);
-            font-weight: 600;
-            flex: 1;
-            text-align: center;
-            margin-left: -160px; /* Offset logo width to center perfectly */
-        }
-        
-        .links {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .icon {
-            width: 50px;
-            height: 50px;
-            fill: #03426e;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            padding: 10px;
-            border-radius: 50%;
-        }
-        
-        .icon:hover {
-            background-color: #f0f0f0;
-            transform: scale(1.1);
-        }
-  .container {
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    line-height: 1.6;
+    padding-top: 80px;
+}
+
+/* Navbar - Desktop First */
+nav {
+    width: 100%;
+    height: 80px;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 270px;
+    height: auto;
+}
+
+.created {
+    color: #03426e;
+    font-size: 24px;
+    font-weight: 600;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.links {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    fill: #03426e;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.icon:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.1);
+}
+
+/* Container and other content styles */
+.container {
     width: 90%;
     max-width: 900px;
     margin: 100px auto 40px auto;
-  }
-    .card {
+}
+
+.card {
     background-color: #fff;
     border-radius: 16px;
     padding: 30px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     animation: fadeIn 0.6s ease-in-out;
-  }
-  
-  h1 {
+}
+
+h1 {
     font-size: 28px;
     margin-bottom: 20px;
     color: #2c3e50;
-  }
-  
-  .instruction {
+}
+
+.instruction {
     margin-bottom: 25px;
     text-align: left;
-  }
-  
-  .instruction h3 {
-    color: #004678;
-    margin-bottom: 8px;
-    font-size: 20px;
-  }
-  
-  .instruction p {
-    font-size: 16px;
-    color: #444;
-  }
-  
-  .instruction a {
-    color: #0077cc;
-    text-decoration: none;
-  }
-  
-  .instruction a:hover {
-    text-decoration: underline;
-  }
-form {
-  max-width: 700px;
-  margin: 0 auto 3rem;
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-select {
-  width: 100%;
-  padding: 0.6rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  outline: none;
-  font-size: 1rem;
-  background-color: white;
-}
-
-form h2 {
-  text-align: center;
-  color: #004080;
-  margin-bottom: 2rem;
-}
-
-.Inputs label {
-  display: block;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-}
-
-.Inputs input {
-  width: 100%;
-  padding: 0.6rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  outline: none;
-  transition: border 0.3s;
-}
-
-.Inputs input:focus {
-  border-color: #004080;
-}
-
-input[type="submit"] {
-  margin-top: 2rem;
-  width: 100%;
-  padding: 0.8rem;
-  background-color: #16b005;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-input[type="submit"]:hover {
-  background-color: #0db510;
-}
-
-table {
-  width: 80%;
-  margin: 2rem auto;
-  border-collapse: collapse;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-table th, table td {
-  border: 1px solid #ccc;
-  padding: 0.8rem;
-  text-align: center;
-}
-
-table th {
-  background-color: #004080;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-}
-form h2 {
-  display: block;
-  margin: 0 auto 2rem auto;
-  text-align: center;
-  color: #004080;
-}
-
-
-table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-@media (max-width:1000px) {
-  .Created{
-      font-size: 16px;
-      margin-top: -6.5rem;
-      margin-left: 0rem;
-  }
-
-  nav .logo{
-      width: 190px;
-      margin-top: -60px;
-  }
- 
-  .icon{
-      width: 35px;
-  }
-
-  
-}
-
-@media (max-width: 768px) {
-    nav .logo {
-    padding-left: -10px;
-    margin-top: -60px;
-    width: 180px;
-  }
-  .Created{
-      margin-top: -6.5rem;
-      margin-left: 14rem;
-      font-size: 14px;
-      width: 200px;
-  }
-
-  .icon{
-      width: 30px;
-      margin-top: -15px;
-      gap: 0px;
-  }
-  .links{
-      margin-right: 0px;
-  }
-
-  nav {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .container, form, table {
-    width: 90%;
-  }
-
-  .Inputs input {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 550px) {
-  .card,
-  form {
-    padding: 15px;
-  }
-  .Created{
-      font-size: 12px;
-      margin-top: -6rem;
-      margin-left: 9rem;
-      width: 150px;
-      
-
-  }
-  .icon{
-      width: 25px;
-      
-  }
-  .links{
-    gap: 5px;
-  }
-nav .logo{
-  width: 160px;
-  margin-top: -50px;
-  margin-left: -10px;
-}
-  h1 {
-    font-size: 20px;
-  }
-
-  .instruction h3 {
-    font-size: 16px;
-  }
-
-  .instruction p {
-    font-size: 14px;
-  }
-
-  th, td {
-    font-size: 14px;
-    padding: 10px;
-  }
-  h2{
-      margin-left: 70px;
-  }   
-  form input[type="submit"] {
-      width: 23rem;
-  }
-
-  nav {
-    height: 50px;
-  }
-}
-  
-@media (max-width: 400px) {
-  .card,
-  form {
-    padding: 15px;
-  }
-  .Created{
-      margin-left: 10rem;
-      font-size: 10px;
-      margin-top: -6rem;
-  }
-.links{
-  margin-top: 2rem;
-}
-
-  .icon{
-    display: block;
-      width: 30px;
-  }
-nav .logo{
-  width: 160px;
-  margin-top: -50px;
-  
-}
-form input[type="submit"] {
-  width: 16rem;
-}
-h2{
-  margin-left: 40px;
-}
-h1 {
-  font-size: 20px;
 }
 
 .instruction h3 {
-  font-size: 16px;
+    color: #004678;
+    margin-bottom: 8px;
+    font-size: 20px;
 }
 
-  .instruction p {
-    font-size: 14px;
-  }
+.instruction p {
+    font-size: 16px;
+    color: #444;
+}
 
-  th, td {
-    font-size: 14px;
-    padding: 10px;
-  }
+.instruction a {
+    color: #0077cc;
+    text-decoration: none;
+}
 
-  nav {
-    height: 50px;
-  }
+.instruction a:hover {
+    text-decoration: underline;
+}
+
+/* Form and table styles */
+form {
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+select, .Inputs input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 1rem;
+    background-color: white;
+}
+
+form h2 {
+    text-align: center;
+    color: #004080;
+    margin-bottom: 2rem;
+}
+
+.Inputs label {
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.Inputs input:focus {
+    border-color: #004080;
+}
+
+input[type="submit"] {
+    margin-top: 2rem;
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #16b005;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #0db510;
+}
+.error {
+    color: red;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 1rem;
+}
+.makrs_prompt {
+    text-align: center;
+    color: #011d3a;
+    font-size: 24px;
+    margin-bottom: 1rem;
+}
+
+table {
+    width: 80%;
+    margin: 2rem auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 0.8rem;
+    text-align: center;
+}
+
+table th {
+    background-color: #004080;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* MOBILE RESPONSIVE - COMPLETELY REWRITTEN */
+
+/* Large tablets and small desktops */
+@media (max-width: 1024px) {
+    .logo {
+        width: 220px;
+    }
+    
+    .created {
+        font-size: 20px;
+    }
+    
+    .icon {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+    nav {
+        height: 70px;
+        padding: 0 1rem;
+    }
+    
+    .logo {
+        width: 180px;
+    }
+    
+    .created {
+        font-size: 16px;
+        max-width: 200px;
+        font-size: 14px;
+        line-height: 1.2;
+    }
+    
+    .icon {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+    }
+    
+    .links {
+        gap: 10px;
+    }
+    
+    body {
+        padding-top: 90px;
+    }
+    
+    .container, form, table {
+        width: 95%;
+    }
+}
+
+/* Large mobile phones */
+@media (max-width: 550px) {
+    nav {
+        height: 60px;
+        padding: 0 0.8rem;
+    }
+    
+    .logo {
+        width: 150px;
+    }
+    
+    .created {
+        font-size: 12px;
+        max-width: 150px;
+        line-height: 1.1;
+    }
+    
+    .icon {
+        width: 35px;
+        height: 35px;
+        padding: 6px;
+    }
+    
+    .links {
+        gap: 6px;
+    }
+    
+    body {
+        padding-top: 80px;
+    }
+    
+    .card, form {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 22px;
+    }
+    
+    .instruction h3 {
+        font-size: 18px;
+    }
+    
+    .instruction p {
+        font-size: 15px;
+    }
+    
+    th, td {
+        font-size: 13px;
+        padding: 8px;
+    }
+}
+
+/* Small mobile phones */
+@media (max-width: 425px) {
+    nav {
+        height: 50px;
+        padding: 0 0.5rem;
+    }
+    
+    .logo {
+        width: 120px;
+    }
+    
+    .created {
+        font-size: 10px;
+        max-width: 120px;
+        line-height: 1;
+        text-align: center;
+    }
+    
+    .icon {
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+    }
+    
+    .links {
+        gap: 4px;
+    }
+    
+    body {
+        padding-top: 70px;
+    }
+    
+    .card, form {
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 20px;
+    }
+    
+    .instruction h3 {
+        font-size: 16px;
+    }
+    
+    .instruction p {
+        font-size: 14px;
+    }
+    
+    th, td {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 320px) {
+    nav {
+        height: 45px;
+        padding: 0 0.3rem;
+    }
+    
+    .logo {
+        width: 60px;
+    }
+    
+    .created {
+        font-size: 9px;
+        max-width: 250px;
+        line-height: 0.9;
+    }
+    
+    .icon {
+        width: 22px;
+        height: 50px;
+        padding: 4px;
+    }
+    
+    .links {
+        gap: 2px;
+    }
+    
+    body {
+        padding-top: 65px;
+    }
 }
