@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: find_the_topper
+    env: python
+    buildCommand: |
+
+      # Install Chrome
+      wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      apt install -y ./google-chrome-stable_current_amd64.deb
+
+      # Get full Chrome version (major.minor.build.patch)
+      CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
+      echo "Detected Chrome version: $CHROME_VERSION"
+
+      # Download matching ChromeDriver from new storage bucket
+      wget "https://storage.googleapis.com/chrome-for-testing-public/$CHROME_VERSION/linux64/chromedriver-linux64.zip" -O /tmp/chromedriver.zip
+      unzip /tmp/chromedriver.zip -d /tmp/
+      mv /tmp/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
+      chmod +x /usr/local/bin/chromedriver
+      echo "✅ ChromeDriver installed"
+
+    startCommand: |
+      pkill -f chrome || true
+      pkill -f chromedriver || true
+      gunicorn app:app

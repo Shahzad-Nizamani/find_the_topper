@@ -8,6 +8,7 @@ def get_data():
     students = None
     marks = None
     subject = None
+    error = None
 
     if request.method == "POST":
         dept = request.form.get("dept").upper()
@@ -16,8 +17,13 @@ def get_data():
         batch = request.form.get("batch").upper()
         subject = request.form.get("subject").upper()
 
-        students, marks = find_topper(dept, year, semester, batch, subject)
-    return render_template("index.html", students = students, marks = marks, sub = subject)
+        result = find_topper(dept, year, semester, batch, subject)
+
+        if isinstance(result, str): 
+            error = result
+        else:
+            students, marks = result
+    return render_template("index.html", students = students, marks = marks, sub = subject, error = error)
 
 if __name__ == "__main__":
     app.run(debug=True)
