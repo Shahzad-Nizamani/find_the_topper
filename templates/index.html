@@ -4,15 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='design.css') }}">
-    </head>
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
 <body>
-
+    <div class="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div class="loading-text">Finding Toppers...</div>
+        </div>
+    </div>
+    
     <nav>
         <div class="nav-left">
-          <img src="{{ url_for('static', filename='Images/logo.png') }}" alt="Logo" class="logo">
-            <span class="created">Created by Shahzad Nizamani - 2K24/CSM/137</span>
+            <img src="{{ url_for('static', filename='Images/logo.png') }}" alt="Logo" class="logo">
+          
+            <div class="created">
+    
+                <span >Created by Shahzad Nizamani - 2K24/CSM/137</span>
+            </div>
+            
         </div>
-        
         <div class="links">
             <a href="https://github.com/Shahzad-Nizamani" target="_blank" rel="noopener noreferrer">
                 <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
@@ -55,7 +66,7 @@
           </div>
         </div>
       </div>
-<form method="post">
+<form method="post" id="topperForm">
 
     <h2>FIND THE TOPPERS</h2>
     <div class="Inputs">
@@ -134,12 +145,12 @@
 <h2 class="error">{{error}}</h2>
 {% endif %}
 
-
+{% if sub %}
+<h2 class="makrs_prompt">TOPPERS IN {{sub}}</h2>
+{% endif %}
     <table>
         
         {% if students and marks %}
-        <h2 class="makrs_prompt">TOPPERS IN {{sub}}</h2>
-
         <table border="1">
             <tr>
             <th>STUDENTS</th>
@@ -158,6 +169,5 @@
         </table>
         {% else %}
         {% endif %}
- <script src="/index.js"></script>
 </body>
 </html>

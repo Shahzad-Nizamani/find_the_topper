@@ -1,402 +1,407 @@
-/* Reset and base styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    line-height: 1.6;
-    padding-top: 80px;
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  line-height: 1.6;
+  padding-top: 0;
 }
 
-/* Navbar - Desktop First */
 nav {
-    width: 100%;
-    height: 80px;
-    background: white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 2rem;
+  width: 100%;
+  height: 100px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.75rem;
 }
 
 .nav-left {
-    display: flex;
-    align-items: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1 1 300px;
+  min-width: 0;
 }
 
 .logo {
-    width: 270px;
-    height: auto;
+  width: clamp(120px, 22vw, 200px);
+  height: auto;
+  position: relative;
+  bottom: 4rem;
+
 }
 
 .created {
-    color: #03426e;
-    font-size: 24px;
-    font-weight: 600;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
+  color: #03426e;
+  font-weight: 600;
+  font-size: clamp(14px, 2.2vw, 20px);
+  flex: 1 1 auto;
+  text-align: center;
+  position: relative;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 0 0.5rem;
+  bottom: 4rem;
 }
 
 .links {
-    display: flex;
-    gap: 15px;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  flex: 0 0 auto;
+  bottom: 4rem;
+
 }
 
 .icon {
-    width: 50px;
-    height: 50px;
-    fill: #03426e;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  fill: #03426e;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+
 }
 
 .icon:hover {
-    background-color: #f0f0f0;
-    transform: scale(1.1);
+  background-color: #f0f0f0;
+  transform: scale(1.1);
+}
+.loading-overlay {
+position: fixed;
+top: 100px;
+left: 0;
+width: 100%;
+height: calc(100% - 100px);
+background: rgba(255, 255, 255, 0.95);
+display: none;
+justify-content: center;
+align-items: center;
+z-index: 900;
+backdrop-filter: blur(5px);
 }
 
-/* Container and other content styles */
+.loading-content {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 20px;
+}
+
+.spinner {
+width: 60px;
+height: 60px;
+border: 5px solid #f3f3f3;
+border-top: 5px solid #004080;
+border-radius: 50%;
+animation: spin 1s linear infinite;
+box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.loading-text {
+color: #004080;
+font-size: 18px;
+font-weight: 500;
+text-align: center;
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+/* Disable form while loading */
+form.loading {
+pointer-events: none;
+opacity: 0.7;
+}
 .container {
-    width: 90%;
-    max-width: 900px;
-    margin: 100px auto 40px auto;
+width: 90%;
+max-width: 900px;
+margin: 1.5rem auto 1.5rem auto;
 }
-
 .card {
-    background-color: #fff;
-    border-radius: 16px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.6s ease-in-out;
+background-color: #fff;
+border-radius: 16px;
+padding: 30px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+animation: fadeIn 0.6s ease-in-out;
 }
 
 h1 {
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #2c3e50;
+font-size: 28px;
+margin-bottom: 20px;
+color: #2c3e50;
 }
 
 .instruction {
-    margin-bottom: 25px;
-    text-align: left;
+margin-bottom: 25px;
+text-align: left;
 }
 
 .instruction h3 {
-    color: #004678;
-    margin-bottom: 8px;
-    font-size: 20px;
+color: #004678;
+margin-bottom: 8px;
+font-size: 20px;
 }
 
 .instruction p {
-    font-size: 16px;
-    color: #444;
+font-size: 16px;
+color: #444;
 }
 
 .instruction a {
-    color: #0077cc;
-    text-decoration: none;
+color: #0077cc;
+text-decoration: none;
 }
 
 .instruction a:hover {
-    text-decoration: underline;
+text-decoration: underline;
 }
-
-/* Form and table styles */
 form {
-    max-width: 700px;
-    margin: 0 auto 3rem;
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+width: 90%;
+max-width: 700px;
+margin: 2rem auto 3rem;
+background-color: #fff;
+padding: clamp(1rem, 4vw, 2rem);
+border-radius: 15px;
+box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+select {
+width: 100%;
+padding: 0.6rem;
+border: 1px solid #ccc;
+border-radius: 8px;
+outline: none;
+font-size: 1rem;
+background-color: white;
 }
 
-select, .Inputs input {
-    width: 100%;
-    padding: 0.6rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    outline: none;
-    font-size: 1rem;
-    background-color: white;
-}
-
-form h2 {
-    text-align: center;
-    color: #004080;
-    margin-bottom: 2rem;
+form h2, .makrs_prompt, .error {
+text-align: center;
+color: #004080;
+margin-bottom: 2rem;
 }
 
 .Inputs label {
-    display: block;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
+display: block;
+margin-top: 1rem;
+margin-bottom: 0.5rem;
+font-weight: bold;
+}
+
+.Inputs input {
+width: 100%;
+padding: 0.6rem;
+border: 1px solid #ccc;
+border-radius: 8px;
+outline: none;
+transition: border 0.3s;
 }
 
 .Inputs input:focus {
-    border-color: #004080;
+border-color: #004080;
 }
 
 input[type="submit"] {
-    margin-top: 2rem;
-    width: 100%;
-    padding: 0.8rem;
-    background-color: #16b005;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
+margin-top: 2rem;
+width: 100%;
+padding: 0.8rem;
+background-color: #16b005;
+color: #fff;
+border: none;
+border-radius: 8px;
+font-size: 1rem;
+cursor: pointer;
+transition: background-color 0.3s;
 }
 
 input[type="submit"]:hover {
-    background-color: #0db510;
+background-color: #0db510;
 }
-.error {
-    color: red;
-    font-size: 18px;
-    text-align: center;
-    margin-top: 1rem;
-}
-.makrs_prompt {
-    text-align: center;
-    color: #011d3a;
-    font-size: 24px;
-    margin-bottom: 1rem;
+
+/* Table responsiveness */
+.table-responsive {
+width: 90%;
+max-width: 1000px;
+margin: 1.5rem auto;
+overflow-x: auto;
+-webkit-overflow-scrolling: touch;
+border-radius: 10px;
+box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+background: #fff;
 }
 
 table {
-    width: 80%;
-    margin: 2rem auto;
-    border-collapse: collapse;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+width: 100%;
+min-width: 520px;
+border-collapse: collapse;
+background-color: #fff;
 }
 
 table th, table td {
-    border: 1px solid #ccc;
-    padding: 0.8rem;
-    text-align: center;
+border: 1px solid #ccc;
+padding: 0.8rem;
+text-align: center;
 }
 
-table th {
-    background-color: #004080;
-    color: white;
-    font-weight: bold;
-    text-align: center;
+table thead th {
+background-color: #004080;
+color: white;
+font-weight: bold;
+text-align: center;
 }
+form h2 {
+display: block;
+margin: 0 auto 2rem auto;
+text-align: center;
+color: #004080;
+}
+
 
 table tr:nth-child(even) {
-    background-color: #f2f2f2;
+background-color: #f2f2f2;
+}
+@media (max-width:1000px) {
+.icon{ width: 48px; height: 48px; }
+.logo{ bottom: 4rem;}
+.created{ bottom: 4rem;}
+.links{ bottom: 4rem; }
+nav{ height: 80px;}
 }
 
-/* MOBILE RESPONSIVE - COMPLETELY REWRITTEN */
-
-/* Large tablets and small desktops */
-@media (max-width: 1024px) {
-    .logo {
-        width: 220px;
-    }
-    
-    .created {
-        font-size: 20px;
-    }
-    
-    .icon {
-        width: 45px;
-        height: 45px;
-    }
-}
-
-/* Tablets */
 @media (max-width: 768px) {
-    nav {
-        height: 70px;
-        padding: 0 1rem;
-    }
-    
-    .logo {
-        width: 180px;
-    }
-    
-    .created {
-        font-size: 16px;
-        max-width: 200px;
-        font-size: 14px;
-        line-height: 1.2;
-    }
-    
-    .icon {
-        width: 40px;
-        height: 40px;
-        padding: 8px;
-    }
-    
-    .links {
-        gap: 10px;
-    }
-    
-    body {
-        padding-top: 90px;
-    }
-    
-    .container, form, table {
-        width: 95%;
-    }
+nav { 
+justify-content: center;
+height: 150px;
+}
+.nav-left { 
+flex: 1 1 100%;
+justify-content: center;
+flex-wrap: wrap;
+}
+.created {
+flex: 0 1 100%;
+order: 1;
+font-size: 20px;
+bottom: 11.5rem;
+}
+.logo {
+order: 1;
+width: 220px;
+bottom: 6rem;
+}
+.links { 
+flex: 0 0 auto;
+gap: 8px;
+justify-content: center;
+padding: 0.5rem 0;
+bottom: 13rem;
+
+}
+.icon { width: 56px; height: 56px; }
+.container, form, .table-responsive { width: 94%; }
+
+/* Form adjustments */
+.card { padding: 1.25rem; }
+select, .Inputs input {
+font-size: 16px; 
+padding: 0.75rem;
+}
+input[type="submit"] {
+padding: 0.875rem;
+font-size: 1.1rem;
+}
 }
 
-/* Large mobile phones */
 @media (max-width: 550px) {
-    nav {
-        height: 60px;
-        padding: 0 0.8rem;
-    }
-    
-    .logo {
-        width: 150px;
-    }
-    
-    .created {
-        font-size: 12px;
-        max-width: 150px;
-        line-height: 1.1;
-    }
-    
-    .icon {
-        width: 35px;
-        height: 35px;
-        padding: 6px;
-    }
-    
-    .links {
-        gap: 6px;
-    }
-    
-    body {
-        padding-top: 80px;
-    }
-    
-    .card, form {
-        padding: 20px;
-    }
-    
-    h1 {
-        font-size: 22px;
-    }
-    
-    .instruction h3 {
-        font-size: 18px;
-    }
-    
-    .instruction p {
-        font-size: 15px;
-    }
-    
-    th, td {
-        font-size: 13px;
-        padding: 8px;
-    }
+nav { padding: 0.75rem 0.5rem; }
+.created { font-size: 16px; bottom: 10rem; }
+.icon { width: 50px; height: 50px; gap: 0; }
+.logo { width: 200px; bottom: 5rem;}
+.links{ bottom: 11rem; }
+
+
+/* Content scaling */
+h1 { font-size: clamp(18px, 5vw, 24px); }
+.instruction h3 { font-size: clamp(15px, 4vw, 18px); }
+.instruction p { font-size: clamp(13px, 3.5vw, 16px); }
+
+/* Table adjustments */
+.table-responsive { width: 96%; }
+th, td { 
+font-size: 13px;
+padding: 0.625rem;
 }
 
-/* Small mobile phones */
-@media (max-width: 425px) {
-    nav {
-        height: 50px;
-        padding: 0 0.5rem;
-    }
-    
-    .logo {
-        width: 120px;
-    }
-    
-    .created {
-        font-size: 10px;
-        max-width: 120px;
-        line-height: 1;
-        text-align: center;
-    }
-    
-    .icon {
-        width: 30px;
-        height: 30px;
-        padding: 5px;
-    }
-    
-    .links {
-        gap: 4px;
-    }
-    
-    body {
-        padding-top: 70px;
-    }
-    
-    .card, form {
-        padding: 15px;
-    }
-    
-    h1 {
-        font-size: 20px;
-    }
-    
-    .instruction h3 {
-        font-size: 16px;
-    }
-    
-    .instruction p {
-        font-size: 14px;
-    }
-    
-    th, td {
-        font-size: 12px;
-        padding: 6px;
-    }
+form { width: 96%; }
+.Inputs label {
+font-size: 15px;
+margin-top: 0.75rem;
+}
+.loading-overlay {
+top: 100px;
+height: calc(100% - 100px);
 }
 
+.spinner {
+width: 50px;
+height: 50px;
+}
 
-/* Extra small screens */
-@media (max-width: 320px) {
-    nav {
-        height: 45px;
-        padding: 0 0.3rem;
-    }
-    
-    .logo {
-        width: 55px;
-    }
-    
-    .created {
-        font-size: 9px;
-        max-width: 250px;
-        line-height: 0.9;
-    }
-    
-    .icon {
-        width: 18px;
-        height: 20px;
-        padding: 4px;
-    }
-    
-    .links {
-        gap: 2px;
-    }
-    
-    body {
-        padding-top: 65px;
-    }
+.loading-text {
+font-size: 16px;
+}
+}
+
+@media (max-width: 400px) {
+nav { padding: 0.5rem; height: 120px; }
+.created { font-size: 13px; bottom: 9rem; }
+.icon { width: 48px; height: 48px;  }
+.logo { width: 180px; bottom: 4rem;}
+.links{
+bottom: 11rem;
+}
+/* Further reduce padding */
+.card, form { padding: 1rem; }
+
+/* Optimize for very small screens */
+select, .Inputs input, th, td {
+font-size: 14px;
+padding: 0.5rem;
+}
+
+/* Ensure table stays readable */
+.table-responsive {
+margin: 1rem auto;
+font-size: 12px;
+}
+
+/* Keep form elements properly spaced */
+.Inputs label {
+font-size: 14px;
+margin-top: 0.625rem;
+margin-bottom: 0.375rem;
+}
+
+input[type="submit"] {
+margin-top: 1.5rem;
+padding: 0.75rem;
+}
 }
