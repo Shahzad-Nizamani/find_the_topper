@@ -43,8 +43,7 @@
     </nav>
 
 
-    <div class="container">
-
+    <div class="container" id="instructions-container">
         <div class="card">
           <h1>📋 Instructions</h1>
     
@@ -61,10 +60,11 @@
           <div class="instruction">
             <h3> Need Help?</h3>
             <p>Medical and Egineering batches are for computer science students.</p>
-            <p>If this is not working for you, feel free to <a href="mailto:nizamanias124@gmail.com">email me</a> with the details. I’ll assist you in resolving the issue.</p>
+            <p>If this is not working for you, feel free to <a href="mailto:nizamanias124@gmail.com">email me</a> with the details. I'll assist you in resolving the issue.</p>
           </div>
         </div>
       </div>
+      
 <form method="post" id="topperForm">
 
     <h2>FIND THE TOPPERS</h2>
@@ -144,11 +144,9 @@
 <h2 class="error">{{error}}</h2>
 {% endif %}
 
-    <table>
-        
+    <div id="results-container" style="display: none;">
         {% if students and marks %}
         <h2 class="makrs_prompt">TOPPERS IN {{sub}}</h2>
-
         <table border="1">
             <tr>
             <th>STUDENTS</th>
@@ -165,7 +163,8 @@
             </tr>
             {% endfor %}
         </table>
-        {% else %}
         {% endif %}
+    </div>
+    <button type="button" id="checkNewResult" class="check-new-result-btn">Check New Result</button>
 </body>
 </html>
