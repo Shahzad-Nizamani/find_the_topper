@@ -15,7 +15,12 @@ def get_data():
         year = request.form.get("year")
         semester = request.form.get("semester")
         batch = request.form.get("batch").upper()
-        subject = request.form.get("subject").upper()
+        subject = request.form.get("subject").strip().upper()
+        if "LAB" in subject:
+            subject = subject.replace("LAB", "(LAB)")
+
+        if "MINOR" in subject:
+            subject = subject.replace("MINOR", "(MINOR)")
 
         result = find_topper(dept, year, semester, batch, subject)
 
