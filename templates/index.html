@@ -144,27 +144,27 @@
 <h2 class="error">{{error}}</h2>
 {% endif %}
 
-    <div id="results-container" style="display: none;">
-        {% if students and marks %}
-        <h2 class="makrs_prompt">TOPPERS IN {{sub}}</h2>
-        <table border="1">
-            <tr>
-            <th>STUDENTS</th>
-            <th>MARKS</th>
-            </tr>
-            {% for i in range(students|length) %}
-            <tr>
-                <td>
-                {% for detail in students[i] %}
-                    {{ detail }}<br>
-                {% endfor %}
-                </td>
-                <td class="marks">{{ marks[i] }}</td>
-            </tr>
+<button type="button" id="checkNewResult" class="check-new-result-btn">Check New Result</button>
+<div id="results-container" style="display: none;">
+    {% if students and marks %}
+    <h2 class="makrs_prompt">TOPPERS IN {{sub}}</h2>
+    <table border="1">
+        <tr>
+        <th>STUDENTS</th>
+        <th>MARKS</th>
+        </tr>
+        {% for i in range(students|length) %}
+        <tr>
+            <td>
+            {% for detail in students[i] %}
+                {{ detail }}<br>
             {% endfor %}
-        </table>
-        {% endif %}
-    </div>
-    <button type="button" id="checkNewResult" class="check-new-result-btn">Check New Result</button>
+            </td>
+            <td class="marks">{{ marks[i] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
 </body>
 </html>
