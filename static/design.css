@@ -35,13 +35,13 @@ nav {
   gap: 1rem;
   flex: 1 1 300px;
   min-width: 0;
+  height: 100%;
 }
 
 .logo {
   width: clamp(120px, 22vw, 200px);
   height: auto;
   position: relative;
-  bottom: 4rem;
 
 }
 
@@ -55,7 +55,6 @@ nav {
   white-space: nowrap;
   text-overflow: ellipsis;
   padding: 0 0.5rem;
-  bottom: 4rem;
 }
 
 .links {
@@ -64,7 +63,6 @@ nav {
   gap: 12px;
   position: relative;
   flex: 0 0 auto;
-  bottom: 4rem;
 
 }
 
@@ -236,6 +234,34 @@ input[type="submit"]:hover {
 background-color: #0db510;
 }
 
+.check-new-result-btn {
+  display: none; /* Hidden by default */
+  width: 300px;
+  margin: 2rem auto;
+  padding: 0.9rem;
+  background-color: #004080;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  position: relative;
+  left: -20%;
+  top: 5rem;
+  transform: translateX(-50%);
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  
+}
+
+.check-new-result-btn:hover {
+  background-color: #003366;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transform: translateX(-50%) translateY(-2px);
+}
+
 .error {
     color: red;
     font-size: 18px;
@@ -246,7 +272,8 @@ background-color: #0db510;
     text-align: center;
     color: #011d3a;
     font-size: 24px;
-    margin-bottom: 1rem;
+    position: relative;
+    top: 8rem;
 }
 
 
@@ -268,6 +295,8 @@ table {
     border-collapse: collapse;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    position: relative;
+    top: 10rem;
 }
 
 
@@ -299,9 +328,9 @@ color: #004080;
 
 @media (max-width:1000px) {
 .icon{ width: 48px; height: 48px; }
-.logo{ bottom: 4rem;}
-.created{ bottom: 4rem;}
-.links{ bottom: 4rem; }
+.check-new-result-btn{ left: 8rem; }
+
+
 nav{ height: 80px;}
 }
 
@@ -331,7 +360,7 @@ flex: 0 0 auto;
 gap: 8px;
 justify-content: center;
 padding: 0.5rem 0;
-bottom: 13rem;
+bottom: 4rem;
 
 }
 .icon { width: 56px; height: 56px; }
@@ -343,6 +372,8 @@ select, .Inputs input {
 font-size: 16px; 
 padding: 0.75rem;
 }
+.check-new-result-btn{ left: 10rem; }
+
 input[type="submit"] {
 padding: 0.875rem;
 font-size: 1.1rem;
@@ -354,7 +385,7 @@ nav { padding: 0.75rem 0.5rem; }
 .created { font-size: 16px; bottom: 10rem; }
 .icon { width: 50px; height: 50px; gap: 0; }
 .logo { width: 200px; bottom: 5rem;}
-.links{ bottom: 11rem; }
+.links{ bottom: 4rem; }
 
 
 /* Content scaling */
@@ -395,8 +426,10 @@ nav { padding: 0.5rem; height: 120px; }
 .icon { width: 48px; height: 48px;  }
 .logo { width: 180px; bottom: 4rem;}
 .links{
-bottom: 11rem;
+bottom: 3.5rem;
 }
+.check-new-result-btn{ left: 10rem; }
+
 /* Further reduce padding */
 .card, form { padding: 1rem; }
 
@@ -418,6 +451,7 @@ font-size: 14px;
 margin-top: 0.625rem;
 margin-bottom: 0.375rem;
 }
+.check-new-result-btn{ left: 10rem; }
 
 input[type="submit"] {
 margin-top: 1.5rem;
