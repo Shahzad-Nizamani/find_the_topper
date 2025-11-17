@@ -31,7 +31,7 @@ def get_result_page(dept, year, semester, batch, subject):
     # Path to chromedriver on Linux
     chrome_driver_path = shutil.which("chromedriver")
     print("Found ChromeDriver at:", chrome_driver_path)
-    service = Service(executable_path=chrome_driver_path)
+    service = Service(executable_path="D:\python practice\chromedriver-win64/chromedriver.exe")
 
     driver = webdriver.Chrome(service=service, options=options)
 
@@ -66,6 +66,18 @@ def get_result_page(dept, year, semester, batch, subject):
       
       if dept == "BUSINESS ADMINSTRATION":
          prog = "B.B.A (HONS)"
+
+      if "LAB" in subject:
+         subject = subject.replace("(LAB)", "LAB").replace("(lab)", "LAB")
+         subject = subject.replace("lab", "LAB").replace("Lab", "LAB")
+         subject = subject.replace("LAB", "(LAB)")
+
+      if "MINOR" in subject:
+       subject = subject.replace("(MINOR)", "MINOR").replace("(minor)", "MINOR").replace("minor", "MINOR")
+       subject = subject.replace("MINOR", "(MINOR)")
+      
+      if subject == "COMPILER CONSTRUCTION":
+         subject = "COMPLIER CONSTRUCTION"
 
       program = Select(driver.find_element(By.ID, "program_id"))
       wait = WebDriverWait(driver, 3)
@@ -117,55 +129,3 @@ def get_result_page(dept, year, semester, batch, subject):
     finally:
        driver.quit()
        shutil.rmtree(temp_dir, ignore_errors=True)
-
-def find_topper(dept, year, semester, batch, subject):
-   try:
-      html = get_result_page(dept, year, semester, batch, subject)
-   except BatchNotFoundError:
-      return "Invalid batch. Please check the batch selection."
-   except SubjectNotFoundError:
-      return "Invalid subject. Please check the subject selection."
-   except Exception as e:
-      return f"An unexpected error occurred: {e}"
-
-   
-   soup = BeautifulSoup(html, "html.parser")
-   data = {}
-   
-   table = soup.select_one("table.table.table-bordered.table-striped")
-   body = table.find("tbody")
-   rows = body.find_all("tr")
-
-   for row in rows:
-      headers = row.find_all("th")
-      if len(headers) < 6:
-       continue
-      
-      roll_no = headers[1].text + '-'
-      name = headers[2].text
-      data[roll_no+name] = headers[5].text
-   
-   marks = set(data.values())
-   marks = list(marks)
-   marks.sort()
-   vals = [marks[len(marks)-1], marks[len(marks)-2], marks[len(marks)-3]]
-
-   first = [k for k, v in data.items() if v == vals[0]]
-   second = [k for k, v in data.items() if v == vals[1]]
-   third = [k for k, v in data.items() if v == vals[2]]
-
-   print(f"Highest marks in {subject}: ")
-
-   print("FIRST: ")
-   for name in first:
-      print(name + " = " + data[name])
-
-   print("SECOND: ")
-   for name in second:
-      print(name + " = " + data[name])
-   
-   print("THIRD: ")
-   for name in third:
-      print(name + " = " + data[name])
-
-   return [first, second, third], [vals[0], vals[1], vals[2]] 

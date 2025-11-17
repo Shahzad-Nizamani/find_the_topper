@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template
-from highest_marks_finder import find_topper
+from database import database
 
 app = Flask(__name__)
 
@@ -16,13 +16,8 @@ def get_data():
         semester = request.form.get("semester")
         batch = request.form.get("batch").upper()
         subject = request.form.get("subject").strip().upper()
-        if "LAB" in subject:
-            subject = subject.replace("LAB", "(LAB)")
 
-        if "MINOR" in subject:
-            subject = subject.replace("MINOR", "(MINOR)")
-
-        result = find_topper(dept, year, semester, batch, subject)
+        result = database(dept, year, semester, batch, subject)
 
         if isinstance(result, str): 
             error = result
